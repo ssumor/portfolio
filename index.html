@@ -103,23 +103,19 @@
     </div>
   </main>
 
-  <!-- MODAL / LIGHTBOX ADAPTATIVO -->
-  <div id="lightbox" class="fixed inset-0 bg-white/95 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4 md:p-8 overflow-y-auto" onclick="closeLightbox()">
-    <div class="relative max-w-5xl w-full bg-white border border-neutral-200 p-6 md:p-8 shadow-2xl my-auto" onclick="event.stopPropagation()">
+  <!-- MODAL / LIGHTBOX PARA AMPLIAR IMAGEN -->
+  <div id="lightbox" class="fixed inset-0 bg-white/95 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4 md:p-8" onclick="closeLightbox()">
+    <div class="relative max-w-4xl w-full bg-white border border-neutral-200 p-6 md:p-8 shadow-2xl" onclick="event.stopPropagation()">
       <button onclick="closeLightbox()" class="absolute top-4 right-4 text-xs font-mono uppercase tracking-widest text-neutral-500 hover:text-black">Cerrar [ESC]</button>
-      
-      <!-- Contenedor adaptativo: altura máxima para que quepa en pantalla sin deformar -->
-      <div class="w-full max-h-[75vh] flex items-center justify-center mb-6 overflow-hidden bg-neutral-50">
-        <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[75vh] w-auto h-auto object-contain">
+      <div class="aspect-square w-full bg-neutral-100 mb-4 overflow-hidden">
+        <img id="lightbox-img" src="" alt="" class="w-full h-full object-cover">
       </div>
-
-      <!-- Textos a ancho completo -->
-      <div class="border-t border-neutral-200 pt-4 w-full">
-        <div class="flex justify-between items-baseline gap-4 mb-2">
-          <h2 id="lightbox-title" class="text-lg font-medium text-neutral-950"></h2>
-          <span id="lightbox-category" class="text-xs font-mono text-neutral-500 shrink-0"></span>
+      <div class="flex justify-between items-baseline border-t border-neutral-200 pt-3">
+        <div>
+          <h2 id="lightbox-title" class="text-base font-medium text-neutral-950"></h2>
+          <p id="lightbox-desc" class="text-xs text-neutral-600 mt-1 max-w-lg"></p>
         </div>
-        <p id="lightbox-desc" class="text-sm text-neutral-700 leading-relaxed font-light w-full"></p>
+        <span id="lightbox-category" class="text-xs font-mono text-neutral-500"></span>
       </div>
     </div>
   </div>
@@ -127,6 +123,7 @@
   <script>
     let projectList = [];
 
+    // Carga los proyectos desde el archivo projects.json
     async function loadProjects() {
       try {
         const res = await fetch('projects.json');
@@ -155,6 +152,7 @@
         return;
       }
 
+      // Reparte los proyectos de forma cíclica entre las columnas 2, 3 y 4
       const columns = [col1, col2, col3];
       items.forEach((item, index) => {
         const targetCol = columns[index % 3];

@@ -1,20 +1,14 @@
 [
   {
-    "title": "Proyecto 01",
+    "title": "Nombre Proyecto 1",
     "category": "Branding · 2024",
-    "image": "assets/foto1.jpg",
-    "description": "Descripción breve del proyecto 01."
+    "image": "assets/proyecto1_thumb.jpg",
+    "description": "Descripción breve."
   },
   {
-    "title": "Proyecto 02",
+    "title": "Nombre Proyecto 2",
     "category": "Editorial · 2024",
-    "image": "assets/foto2.jpg",
-    "description": "Descripción breve del proyecto 02."
-  },
-  {
-    "title": "Proyecto 03",
-    "category": "Packaging · 2023",
-    "image": "assets/foto3.jpg",
-    "description": "Descripción breve del proyecto 03."
+    "image": "assets/proyecto2_thumb.jpg",
+    "description": "Descripción breve."
   }
 ]

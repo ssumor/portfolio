@@ -20,11 +20,27 @@
 </head>
 <body class="bg-white text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">
 
-  <main class="max-w-[1720px] mx-auto px-6 sm:px-8 py-10 lg:py-16">
+  <!-- CONMUTADOR DE PRUEBA: OPCIÓN A vs OPCIÓN B -->
+  <div class="sticky top-0 z-40 bg-neutral-900 text-white px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3 shadow-md">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-300">Modo de visor (Lightbox):</span>
+    </div>
+    <div class="flex items-center gap-1 bg-neutral-800 p-0.5 border border-neutral-700">
+      <button id="btn-mode-a" onclick="setLightboxMode('carousel')" class="px-3 py-1 font-mono text-xs transition-colors bg-white text-black font-medium">
+        Opción A: Carrusel con Flechas
+      </button>
+      <button id="btn-mode-b" onclick="setLightboxMode('editorial')" class="px-3 py-1 font-mono text-xs transition-colors text-neutral-400 hover:text-white">
+        Opción B: Galería Completa Scroll (Estilo Behance)
+      </button>
+    </div>
+  </div>
+
+  <main class="max-w-[1720px] mx-auto px-6 sm:px-8 py-8 lg:py-12">
     <div class="grid grid-cols-1 four-column-grid gap-8 lg:gap-10 items-start">
       
       <!-- COLUMNA 1: TUS DATOS Y CV -->
-      <aside class="w-full lg:sticky lg:top-10 pr-0 lg:pr-2">
+      <aside class="w-full lg:sticky lg:top-16 pr-0 lg:pr-2">
         <header class="mb-8">
           <h1 class="text-2xl lg:text-3xl font-medium tracking-tight text-neutral-950">
             [Tu Nombre y Apellidos]
@@ -103,39 +119,192 @@
     </div>
   </main>
 
-  <!-- MODAL / LIGHTBOX PARA AMPLIAR IMAGEN -->
-  <div id="lightbox" class="fixed inset-0 bg-white/95 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4 md:p-8" onclick="closeLightbox()">
-    <div class="relative max-w-4xl w-full bg-white border border-neutral-200 p-6 md:p-8 shadow-2xl" onclick="event.stopPropagation()">
-      <button onclick="closeLightbox()" class="absolute top-4 right-4 text-xs font-mono uppercase tracking-widest text-neutral-500 hover:text-black">Cerrar [ESC]</button>
-      <div class="aspect-square w-full bg-neutral-100 mb-4 overflow-hidden">
-        <img id="lightbox-img" src="" alt="" class="w-full h-full object-cover">
+  <!-- ==============================================================
+       MODAL OPCIÓN A: CARRUSEL CON FLECHAS (SLIDER FOTO A FOTO)
+       ============================================================== -->
+  <div id="lightbox-carousel" class="fixed inset-0 bg-white/95 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4 md:p-10" onclick="closeCarousel()">
+    <!-- Botón Cerrar -->
+    <button onclick="closeCarousel()" class="absolute top-5 right-6 text-xs font-mono uppercase tracking-widest text-neutral-500 hover:text-black z-20">
+      Cerrar [ESC] ✕
+    </button>
+
+    <!-- Flecha Izquierda -->
+    <button onclick="changeSlide(-1); event.stopPropagation();" class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 p-3 text-neutral-400 hover:text-black z-20 transition-colors" aria-label="Anterior">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+    </button>
+
+    <!-- Flecha Derecha -->
+    <button onclick="changeSlide(1); event.stopPropagation();" class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 p-3 text-neutral-400 hover:text-black z-20 transition-colors" aria-label="Siguiente">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+    </button>
+
+    <!-- Contenido del Carrusel -->
+    <div class="relative max-w-5xl w-full bg-white border border-neutral-200 p-6 md:p-8 shadow-2xl flex flex-col my-auto" onclick="event.stopPropagation()">
+      <div class="w-full max-h-[70vh] flex items-center justify-center mb-6 overflow-hidden bg-neutral-50">
+        <img id="carousel-img" src="" alt="" class="max-w-full max-h-[70vh] w-auto h-auto object-contain transition-all duration-200">
       </div>
-      <div class="flex justify-between items-baseline border-t border-neutral-200 pt-3">
-        <div>
-          <h2 id="lightbox-title" class="text-base font-medium text-neutral-950"></h2>
-          <p id="lightbox-desc" class="text-xs text-neutral-600 mt-1 max-w-lg"></p>
+
+      <div class="border-t border-neutral-200 pt-4 w-full">
+        <div class="flex justify-between items-baseline gap-4 mb-2">
+          <div class="flex items-baseline gap-3">
+            <h2 id="carousel-title" class="text-lg font-medium text-neutral-950"></h2>
+            <span id="carousel-counter" class="text-xs font-mono text-neutral-400 font-medium"></span>
+          </div>
+          <span id="carousel-category" class="text-xs font-mono text-neutral-500 shrink-0"></span>
         </div>
-        <span id="lightbox-category" class="text-xs font-mono text-neutral-500"></span>
+        <p id="carousel-desc" class="text-sm text-neutral-700 leading-relaxed font-light w-full"></p>
       </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODAL OPCIÓN B: GALERÍA EDITORIAL COMPLETA (VERTICAL SCROLL)
+       ============================================================== -->
+  <div id="lightbox-editorial" class="fixed inset-0 bg-neutral-950/80 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-200 overflow-y-auto" onclick="closeEditorial()">
+    <!-- Botón flotante cerrar -->
+    <button onclick="closeEditorial()" class="fixed top-6 right-8 z-30 bg-white text-black px-4 py-2 text-xs font-mono uppercase tracking-widest hover:bg-neutral-200 shadow-lg">
+      Cerrar [ESC] ✕
+    </button>
+
+    <div class="min-h-full py-12 px-4 sm:px-6 flex justify-center items-start">
+      <article class="bg-white max-w-4xl w-full p-8 sm:p-14 border border-neutral-200 shadow-2xl space-y-10" onclick="event.stopPropagation()">
+        
+        <!-- Cabecera del Proyecto -->
+        <header class="border-b border-neutral-200 pb-8">
+          <div class="flex items-center justify-between text-xs font-mono text-neutral-500 mb-3">
+            <span id="editorial-category"></span>
+            <span id="editorial-year"></span>
+          </div>
+          <h1 id="editorial-title" class="text-3xl sm:text-4xl font-medium text-neutral-950 tracking-tight mb-4"></h1>
+          <p id="editorial-desc" class="text-base text-neutral-700 font-light leading-relaxed max-w-2xl"></p>
+        </header>
+
+        <!-- Galería de fotos apiladas verticalmente -->
+        <div id="editorial-gallery" class="space-y-8"></div>
+
+        <!-- Pie del proyecto / Ficha -->
+        <footer class="pt-8 border-t border-neutral-200 flex justify-between items-center text-xs font-mono text-neutral-500">
+          <span>Fin del proyecto</span>
+          <button onclick="closeEditorial()" class="text-neutral-950 underline underline-offset-4 font-sans font-medium">
+            Volver al portfolio ↑
+          </button>
+        </footer>
+      </article>
     </div>
   </div>
 
   <script>
     let projectList = [];
+    let currentLightboxMode = 'carousel';
+    let activeProjectIdx = 0;
+    let activeImageIdx = 0;
 
-    // Carga los proyectos desde el archivo projects.json
+    const fallbackProjects = [
+      {
+        title: "Generador cromático de moodboards",
+        category: "Interiorismo - 2026",
+        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&auto=format&fit=crop&q=80",
+        description: "El método aleatorio para escribir letras de canciones de David Bowie sirve de inspiración para generar esta herramienta. Partiendo del color o de las gamas cromáticas de una imagen, genera moodboards de materiales, colores y mobiliario.",
+        gallery: [
+          "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1600&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        title: "A window for a Tree",
+        category: "Diseño de producto - Arquitectura - 2026",
+        image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=900&auto=format&fit=crop&q=80",
+        description: "El calentamiento progresivo de las ciudades en verano y la poda de árboles en algunos barrios de Barcelona sirve como reflexión para proponer soluciones fáciles de instalar y asequibles para mitigar el calor en las fachadas.",
+        gallery: [
+          "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        title: "Colgador Zen",
+        category: "Diseño de producto - 2023",
+        image: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=900&auto=format&fit=crop&q=80",
+        description: "Cantos rodados naturales son convertidos en colgadores. Ninguno es igual, cada uno nos cuenta su historia y transmite la serenidad del elemento pétreo pulido.",
+        gallery: [
+          "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1600&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        title: "Micro Home Camino de Santiago",
+        category: "Arquitectura - Interiorismo - 2024",
+        image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=900&auto=format&fit=crop&q=80",
+        description: "El programa consistía en realizar una casa de 50m2 destinada a alquiler vacacional en un emplazamiento natural con muy buenas vistas. Se ha aprovechado al máximo el espacio interior evitando pasillos.",
+        gallery: [
+          "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        title: "Sofá Night & Day",
+        category: "Diseño de producto - 2010",
+        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&auto=format&fit=crop&q=80",
+        description: "Este sofá fue presentado en el Salón Nude de la Feria del Mueble de Valencia 2010. Su tamaño medio y su diseño flexible hace que sea adecuado para cualquier espacio residencial.",
+        gallery: [
+          "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        title: "Florero Pet",
+        category: "Diseño de producto - 2010",
+        image: "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?w=900&auto=format&fit=crop&q=80",
+        description: "Este florero está concebido para poder disfrutar de los arreglos florales desde una perspectiva diferente, destacando la interacción entre el vidrio soplado y el agua.",
+        gallery: [
+          "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?w=1600&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1600&auto=format&fit=crop&q=80"
+        ]
+      }
+    ];
+
+    function setLightboxMode(mode) {
+      currentLightboxMode = mode;
+      const btnA = document.getElementById('btn-mode-a');
+      const btnB = document.getElementById('btn-mode-b');
+
+      if (!btnA || !btnB) return;
+
+      if (mode === 'carousel') {
+        btnA.className = 'px-3 py-1 font-mono text-xs transition-colors bg-white text-black font-medium';
+        btnB.className = 'px-3 py-1 font-mono text-xs transition-colors text-neutral-400 hover:text-white';
+      } else {
+        btnB.className = 'px-3 py-1 font-mono text-xs transition-colors bg-white text-black font-medium';
+        btnA.className = 'px-3 py-1 font-mono text-xs transition-colors text-neutral-400 hover:text-white';
+      }
+    }
+
     async function loadProjects() {
       try {
         const res = await fetch('projects.json');
         if (res.ok) {
-          projectList = await res.json();
-          renderGrid(projectList);
-        } else {
-          showEmptyNotice();
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            projectList = data;
+            renderGrid(projectList);
+            return;
+          }
         }
+        projectList = fallbackProjects;
+        renderGrid(projectList);
       } catch (e) {
-        showEmptyNotice();
+        projectList = fallbackProjects;
+        renderGrid(projectList);
       }
+    }
+
+    function getProjectImages(item) {
+      if (Array.isArray(item.gallery) && item.gallery.length > 0) {
+        return item.gallery;
+      }
+      return [item.image];
     }
 
     function renderGrid(items) {
@@ -143,6 +312,8 @@
       const col2 = document.getElementById('col-2');
       const col3 = document.getElementById('col-3');
       
+      if (!col1 || !col2 || !col3) return;
+
       col1.innerHTML = '';
       col2.innerHTML = '';
       col3.innerHTML = '';
@@ -152,13 +323,12 @@
         return;
       }
 
-      // Reparte los proyectos de forma cíclica entre las columnas 2, 3 y 4
       const columns = [col1, col2, col3];
       items.forEach((item, index) => {
         const targetCol = columns[index % 3];
         const card = document.createElement('article');
         card.className = 'group cursor-pointer';
-        card.onclick = () => openLightbox(index);
+        card.onclick = () => handleProjectClick(index);
         card.innerHTML = `
           <div class="aspect-square w-full bg-neutral-100 overflow-hidden relative">
             <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300" loading="lazy">
@@ -174,33 +344,139 @@
 
     function showEmptyNotice() {
       const col1 = document.getElementById('col-1');
-      col1.innerHTML = '<p class="text-xs font-mono text-neutral-600">Añade proyectos en projects.json para verlos aquí.</p>';
+      if (col1) {
+        col1.innerHTML = '<p class="text-xs font-mono text-neutral-600">Añade proyectos en projects.json para verlos aquí.</p>';
+      }
     }
 
-    function openLightbox(index) {
-      const item = projectList[index];
+    function handleProjectClick(index) {
+      activeProjectIdx = index;
+      activeImageIdx = 0;
+
+      if (currentLightboxMode === 'carousel') {
+        openCarousel();
+      } else {
+        openEditorial();
+      }
+    }
+
+    /* -------------------------------------------------------------
+       LÓGICA OPCIÓN A: CARRUSEL CON FLECHAS
+       ------------------------------------------------------------- */
+    function openCarousel() {
+      const item = projectList[activeProjectIdx];
       if (!item) return;
-      document.getElementById('lightbox-img').src = item.image;
-      document.getElementById('lightbox-title').textContent = item.title;
-      document.getElementById('lightbox-category').textContent = item.category;
-      document.getElementById('lightbox-desc').textContent = item.description || '';
-      
-      const modal = document.getElementById('lightbox');
+
+      updateCarouselSlide();
+      const modal = document.getElementById('lightbox-carousel');
+      if (!modal) return;
       modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
       setTimeout(() => modal.classList.remove('opacity-0'), 10);
     }
 
-    function closeLightbox() {
-      const modal = document.getElementById('lightbox');
+    function updateCarouselSlide() {
+      const item = projectList[activeProjectIdx];
+      if (!item) return;
+      const images = getProjectImages(item);
+      const currentSrc = images[activeImageIdx] || item.image;
+
+      const imgEl = document.getElementById('carousel-img');
+      const titleEl = document.getElementById('carousel-title');
+      const catEl = document.getElementById('carousel-category');
+      const descEl = document.getElementById('carousel-desc');
+      const counterEl = document.getElementById('carousel-counter');
+
+      if (imgEl) imgEl.src = currentSrc;
+      if (titleEl) titleEl.textContent = item.title;
+      if (catEl) catEl.textContent = item.category;
+      if (descEl) descEl.textContent = item.description || '';
+      if (counterEl) counterEl.textContent = `${activeImageIdx + 1} / ${images.length}`;
+    }
+
+    function changeSlide(direction) {
+      const item = projectList[activeProjectIdx];
+      if (!item) return;
+      const images = getProjectImages(item);
+      activeImageIdx = (activeImageIdx + direction + images.length) % images.length;
+      updateCarouselSlide();
+    }
+
+    function closeCarousel() {
+      const modal = document.getElementById('lightbox-carousel');
+      if (!modal) return;
       modal.classList.add('opacity-0');
+      document.body.style.overflow = '';
+      setTimeout(() => modal.classList.add('hidden'), 200);
+    }
+
+    /* -------------------------------------------------------------
+       LÓGICA OPCIÓN B: GALERÍA EDITORIAL SCROLL
+       ------------------------------------------------------------- */
+    function openEditorial() {
+      const item = projectList[activeProjectIdx];
+      if (!item) return;
+
+      const titleEl = document.getElementById('editorial-title');
+      const catEl = document.getElementById('editorial-category');
+      const descEl = document.getElementById('editorial-desc');
+      const gallery = document.getElementById('editorial-gallery');
+
+      if (titleEl) titleEl.textContent = item.title;
+      if (catEl) catEl.textContent = item.category;
+      if (descEl) descEl.textContent = item.description || '';
+
+      if (gallery) {
+        gallery.innerHTML = '';
+        const images = getProjectImages(item);
+        images.forEach((imgSrc, i) => {
+          const figure = document.createElement('figure');
+          figure.className = 'w-full bg-neutral-50 overflow-hidden';
+          figure.innerHTML = `
+            <img src="${imgSrc}" alt="${item.title} - Imagen ${i + 1}" class="w-full h-auto object-contain" loading="lazy">
+          `;
+          gallery.appendChild(figure);
+        });
+      }
+
+      const modal = document.getElementById('lightbox-editorial');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => modal.classList.remove('opacity-0'), 10);
+    }
+
+    function closeEditorial() {
+      const modal = document.getElementById('lightbox-editorial');
+      if (!modal) return;
+      modal.classList.add('opacity-0');
+      document.body.style.overflow = '';
       setTimeout(() => modal.classList.add('hidden'), 200);
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightbox();
+      const carouselModal = document.getElementById('lightbox-carousel');
+      const editorialModal = document.getElementById('lightbox-editorial');
+
+      const isCarouselOpen = carouselModal && !carouselModal.classList.contains('hidden');
+      const isEditorialOpen = editorialModal && !editorialModal.classList.contains('hidden');
+
+      if (e.key === 'Escape') {
+        if (isCarouselOpen) closeCarousel();
+        if (isEditorialOpen) closeEditorial();
+      }
+
+      if (isCarouselOpen) {
+        if (e.key === 'ArrowRight') changeSlide(1);
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+      }
     });
 
-    loadProjects();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadProjects);
+    } else {
+      loadProjects();
+    }
   </script>
 </body>
 </html>

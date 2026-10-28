@@ -20,27 +20,11 @@
 </head>
 <body class="bg-white text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">
 
-  <!-- CONMUTADOR DE PRUEBA: OPCIÓN A vs OPCIÓN B -->
-  <div class="sticky top-0 z-40 bg-neutral-900 text-white px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3 shadow-md">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-300">Modo de visor (Lightbox):</span>
-    </div>
-    <div class="flex items-center gap-1 bg-neutral-800 p-0.5 border border-neutral-700">
-      <button id="btn-mode-a" onclick="setLightboxMode('carousel')" class="px-3 py-1 font-mono text-xs transition-colors bg-white text-black font-medium">
-        Opción A: Carrusel con Flechas
-      </button>
-      <button id="btn-mode-b" onclick="setLightboxMode('editorial')" class="px-3 py-1 font-mono text-xs transition-colors text-neutral-400 hover:text-white">
-        Opción B: Galería Completa Scroll (Estilo Behance)
-      </button>
-    </div>
-  </div>
-
   <main class="max-w-[1720px] mx-auto px-6 sm:px-8 py-8 lg:py-12">
     <div class="grid grid-cols-1 four-column-grid gap-8 lg:gap-10 items-start">
       
       <!-- COLUMNA 1: TUS DATOS Y CV -->
-      <aside class="w-full lg:sticky lg:top-16 pr-0 lg:pr-2">
+      <aside class="w-full lg:sticky lg:top-12 pr-0 lg:pr-2">
         <header class="mb-8">
           <h1 class="text-2xl lg:text-3xl font-medium tracking-tight text-neutral-950">
             Susana Moreno
@@ -119,9 +103,7 @@
     </div>
   </main>
 
-  <!-- ==============================================================
-       MODAL OPCIÓN A: CARRUSEL CON FLECHAS (SLIDER FOTO A FOTO)
-       ============================================================== -->
+  <!-- MODAL: CARRUSEL CON FLECHAS -->
   <div id="lightbox-carousel" class="fixed inset-0 bg-white/95 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4 md:p-10" onclick="closeCarousel()">
     <!-- Botón Cerrar -->
     <button onclick="closeCarousel()" class="absolute top-5 right-6 text-xs font-mono uppercase tracking-widest text-neutral-500 hover:text-black z-20">
@@ -157,68 +139,14 @@
     </div>
   </div>
 
-  <!-- ==============================================================
-       MODAL OPCIÓN B: GALERÍA EDITORIAL COMPLETA (VERTICAL SCROLL)
-       ============================================================== -->
-  <div id="lightbox-editorial" class="fixed inset-0 bg-neutral-950/80 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-200 overflow-y-auto" onclick="closeEditorial()">
-    <!-- Botón flotante cerrar -->
-    <button onclick="closeEditorial()" class="fixed top-6 right-8 z-30 bg-white text-black px-4 py-2 text-xs font-mono uppercase tracking-widest hover:bg-neutral-200 shadow-lg">
-      Cerrar [ESC] ✕
-    </button>
-
-    <div class="min-h-full py-12 px-4 sm:px-6 flex justify-center items-start">
-      <article class="bg-white max-w-4xl w-full p-8 sm:p-14 border border-neutral-200 shadow-2xl space-y-10" onclick="event.stopPropagation()">
-        
-        <!-- Cabecera del Proyecto -->
-        <header class="border-b border-neutral-200 pb-8">
-          <div class="flex items-center justify-between text-xs font-mono text-neutral-500 mb-3">
-            <span id="editorial-category"></span>
-            <span id="editorial-year"></span>
-          </div>
-          <h1 id="editorial-title" class="text-3xl sm:text-4xl font-medium text-neutral-950 tracking-tight mb-4"></h1>
-          <p id="editorial-desc" class="text-base text-neutral-700 font-light leading-relaxed max-w-2xl"></p>
-        </header>
-
-        <!-- Galería de fotos apiladas verticalmente -->
-        <div id="editorial-gallery" class="space-y-8"></div>
-
-        <!-- Pie del proyecto / Ficha -->
-        <footer class="pt-8 border-t border-neutral-200 flex justify-between items-center text-xs font-mono text-neutral-500">
-          <span>Fin del proyecto</span>
-          <button onclick="closeEditorial()" class="text-neutral-950 underline underline-offset-4 font-sans font-medium">
-            Volver al portfolio ↑
-          </button>
-        </footer>
-      </article>
-    </div>
-  </div>
-
   <script>
     let projectList = [];
-    let currentLightboxMode = 'carousel';
     let activeProjectIdx = 0;
     let activeImageIdx = 0;
 
-    function setLightboxMode(mode) {
-      currentLightboxMode = mode;
-      const btnA = document.getElementById('btn-mode-a');
-      const btnB = document.getElementById('btn-mode-b');
-
-      if (!btnA || !btnB) return;
-
-      if (mode === 'carousel') {
-        btnA.className = 'px-3 py-1 font-mono text-xs transition-colors bg-white text-black font-medium';
-        btnB.className = 'px-3 py-1 font-mono text-xs transition-colors text-neutral-400 hover:text-white';
-      } else {
-        btnB.className = 'px-3 py-1 font-mono text-xs transition-colors bg-white text-black font-medium';
-        btnA.className = 'px-3 py-1 font-mono text-xs transition-colors text-neutral-400 hover:text-white';
-      }
-    }
-
-    // Carga de proyectos directamente desde projects.json
     async function loadProjects() {
       try {
-        const res = await fetch('projects.json?v=' + Date.now()); // evita caché agresiva en navegadores
+        const res = await fetch('projects.json?v=' + Date.now());
         if (!res.ok) throw new Error('No se pudo cargar projects.json');
         
         const data = await res.json();
@@ -229,12 +157,11 @@
           showEmptyNotice('projects.json está vacío.');
         }
       } catch (err) {
-        console.warn('Cargando con error o en entorno local:', err);
-        showEmptyNotice('No se pudo leer el archivo projects.json. Revisa que esté en la raíz del repositorio.');
+        console.warn('Error al cargar projects.json:', err);
+        showEmptyNotice('No se pudo leer projects.json.');
       }
     }
 
-    // Obtener lista completa de imágenes para el visor
     function getProjectImages(item) {
       if (Array.isArray(item.gallery) && item.gallery.length > 0) {
         return item.gallery;
@@ -265,7 +192,6 @@
         card.className = 'group cursor-pointer';
         card.onclick = () => handleProjectClick(index);
         
-        // La miniatura principal siempre usa item.image en formato cuadrado 1:1
         card.innerHTML = `
           <div class="aspect-square w-full bg-neutral-100 overflow-hidden relative">
             <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300" loading="lazy">
@@ -289,17 +215,9 @@
     function handleProjectClick(index) {
       activeProjectIdx = index;
       activeImageIdx = 0;
-
-      if (currentLightboxMode === 'carousel') {
-        openCarousel();
-      } else {
-        openEditorial();
-      }
+      openCarousel();
     }
 
-    /* -------------------------------------------------------------
-       LÓGICA VISOR A: CARRUSEL CON FLECHAS
-       ------------------------------------------------------------- */
     function openCarousel() {
       const item = projectList[activeProjectIdx];
       if (!item) return;
@@ -335,7 +253,6 @@
         counterEl.textContent = images.length > 1 ? `${activeImageIdx + 1} / ${images.length}` : '';
       }
 
-      // Ocultar flechas si solo tiene 1 imagen
       if (prevBtn && nextBtn) {
         const display = images.length > 1 ? 'block' : 'none';
         prevBtn.style.display = display;
@@ -360,63 +277,13 @@
       setTimeout(() => modal.classList.add('hidden'), 200);
     }
 
-    /* -------------------------------------------------------------
-       LÓGICA VISOR B: GALERÍA EDITORIAL SCROLL
-       ------------------------------------------------------------- */
-    function openEditorial() {
-      const item = projectList[activeProjectIdx];
-      if (!item) return;
-
-      const titleEl = document.getElementById('editorial-title');
-      const catEl = document.getElementById('editorial-category');
-      const descEl = document.getElementById('editorial-desc');
-      const gallery = document.getElementById('editorial-gallery');
-
-      if (titleEl) titleEl.textContent = item.title;
-      if (catEl) catEl.textContent = item.category || '';
-      if (descEl) descEl.textContent = item.description || '';
-
-      if (gallery) {
-        gallery.innerHTML = '';
-        const images = getProjectImages(item);
-        images.forEach((imgSrc, i) => {
-          const figure = document.createElement('figure');
-          figure.className = 'w-full bg-neutral-50 overflow-hidden';
-          figure.innerHTML = `
-            <img src="${imgSrc}" alt="${item.title} - Imagen ${i + 1}" class="w-full h-auto object-contain" loading="lazy">
-          `;
-          gallery.appendChild(figure);
-        });
-      }
-
-      const modal = document.getElementById('lightbox-editorial');
-      if (!modal) return;
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => modal.classList.remove('opacity-0'), 10);
-    }
-
-    function closeEditorial() {
-      const modal = document.getElementById('lightbox-editorial');
-      if (!modal) return;
-      modal.classList.add('opacity-0');
-      document.body.style.overflow = '';
-      setTimeout(() => modal.classList.add('hidden'), 200);
-    }
-
-    // Controles por teclado: flechas para carrusel y Escape para cerrar
     document.addEventListener('keydown', (e) => {
       const carouselModal = document.getElementById('lightbox-carousel');
-      const editorialModal = document.getElementById('lightbox-editorial');
-
       const isCarouselOpen = carouselModal && !carouselModal.classList.contains('hidden');
-      const isEditorialOpen = editorialModal && !editorialModal.classList.contains('hidden');
 
-      if (e.key === 'Escape') {
-        if (isCarouselOpen) closeCarousel();
-        if (isEditorialOpen) closeEditorial();
+      if (e.key === 'Escape' && isCarouselOpen) {
+        closeCarousel();
       }
-
       if (isCarouselOpen) {
         if (e.key === 'ArrowRight') changeSlide(1);
         if (e.key === 'ArrowLeft') changeSlide(-1);

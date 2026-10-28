@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    @media (min-width: 580px) {
+      .four-column-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr 1fr !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">
+
+  <main class="max-w-[1720px] mx-auto px-6 sm:px-8 py-10 lg:py-16">
+    <div class="grid grid-cols-1 four-column-grid gap-8 lg:gap-10 items-start">
+      
+      <!-- COLUMNA 1: TUS DATOS Y CV -->
+      <aside class="w-full lg:sticky lg:top-10 pr-0 lg:pr-2">
+        <header class="mb-8">
+          <h1 class="text-2xl lg:text-3xl font-medium tracking-tight text-neutral-950">
+            [Tu Nombre y Apellidos]
+          </h1>
+          <p class="text-xs font-mono uppercase tracking-widest text-neutral-600 mt-1">
+            Diseñador/a Gráfico / Visual
+          </p>
+        </header>
+
+        <!-- Breve párrafo -->
+        <p class="text-sm text-neutral-800 leading-relaxed font-light mb-8">
+          Diseñador/a enfocado/a en dirección de arte, identidad visual y diseño editorial. Trabajo desarrollando soluciones visuales depuradas y sistemas coherentes para marcas e instituciones culturales.
+        </p>
+
+        <!-- 4 Puntos clave de tu CV -->
+        <div class="border-t border-neutral-300 pt-6 mb-8 space-y-4">
+          <p class="text-[11px] font-mono uppercase tracking-widest text-neutral-600">Trayectoria Clave</p>
+          
+          <div class="space-y-3.5 text-xs">
+            <div class="flex items-start gap-2.5">
+              <span class="font-mono text-neutral-600 text-[11px] mt-0.5">01</span>
+              <div>
+                <strong class="font-medium text-neutral-900 block">Lead Designer en Estudio X</strong>
+                <span class="text-neutral-600 text-[11px]">2022 — Actualidad · Identidad & Dirección de arte</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="font-mono text-neutral-600 text-[11px] mt-0.5">02</span>
+              <div>
+                <strong class="font-medium text-neutral-900 block">Grado en Diseño Visual / Gráfico</strong>
+                <span class="text-neutral-600 text-[11px]">Universidad / Escuela de Diseño · 2018 — 2022</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="font-mono text-neutral-600 text-[11px] mt-0.5">03</span>
+              <div>
+                <strong class="font-medium text-neutral-900 block">Reconocimiento / Premio de Diseño</strong>
+                <span class="text-neutral-600 text-[11px]">Selección Laus / Premios de Diseño · 2023</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="font-mono text-neutral-600 text-[11px] mt-0.5">04</span>
+              <div>
+                <strong class="font-medium text-neutral-900 block">Especialización Tipográfica</strong>
+                <span class="text-neutral-600 text-[11px]">Sistemas editoriales impresos y digitales</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contacto -->
+        <div class="border-t border-neutral-300 pt-5 space-y-2">
+          <a href="mailto:tuemail@ejemplo.com" class="block text-xs font-mono text-neutral-900 hover:opacity-60 underline underline-offset-4">
+            tuemail@ejemplo.com
+          </a>
+          <div class="flex gap-4 text-xs font-mono text-neutral-600 pt-1">
+            <a href="https://behance.net" target="_blank" class="hover:text-neutral-950">Behance</a>
+            <a href="https://instagram.com" target="_blank" class="hover:text-neutral-950">Instagram</a>
+            <a href="https://linkedin.com" target="_blank" class="hover:text-neutral-950">LinkedIn</a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- COLUMNA 2: PROYECTOS (1, 4, 7...) -->
+      <div id="col-1" class="flex flex-col gap-8"></div>
+
+      <!-- COLUMNA 3: PROYECTOS (2, 5, 8...) -->
+      <div id="col-2" class="flex flex-col gap-8"></div>
+
+      <!-- COLUMNA 4: PROYECTOS (3, 6, 9...) -->
+      <div id="col-3" class="flex flex-col gap-8"></div>
+
+    </div>
+  </main>
+
+  <!-- MODAL / LIGHTBOX PARA AMPLIAR IMAGEN -->
+  <div id="lightbox" class="fixed inset-0 bg-white/95 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4 md:p-8" onclick="closeLightbox()">
+    <div class="relative max-w-4xl w-full bg-white border border-neutral-200 p-6 md:p-8 shadow-2xl" onclick="event.stopPropagation()">
+      <button onclick="closeLightbox()" class="absolute top-4 right-4 text-xs font-mono uppercase tracking-widest text-neutral-500 hover:text-black">Cerrar [ESC]</button>
+      <div class="aspect-square w-full bg-neutral-100 mb-4 overflow-hidden">
+        <img id="lightbox-img" src="" alt="" class="w-full h-full object-cover">
+      </div>
+      <div class="flex justify-between items-baseline border-t border-neutral-200 pt-3">
+        <div>
+          <h2 id="lightbox-title" class="text-base font-medium text-neutral-950"></h2>
+          <p id="lightbox-desc" class="text-xs text-neutral-600 mt-1 max-w-lg"></p>
+        </div>
+        <span id="lightbox-category" class="text-xs font-mono text-neutral-500"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let projectList = [];
+
+    // Carga los proyectos desde el archivo projects.json
+    async function loadProjects() {
+      try {
+        const res = await fetch('projects.json');
+        if (res.ok) {
+          projectList = await res.json();
+          renderGrid(projectList);
+        } else {
+          showEmptyNotice();
+        }
+      } catch (e) {
+        showEmptyNotice();
+      }
+    }
+
+    function renderGrid(items) {
+      const col1 = document.getElementById('col-1');
+      const col2 = document.getElementById('col-2');
+      const col3 = document.getElementById('col-3');
+      
+      col1.innerHTML = '';
+      col2.innerHTML = '';
+      col3.innerHTML = '';
+
+      if (!items || items.length === 0) {
+        showEmptyNotice();
+        return;
+      }
+
+      // Reparte los proyectos de forma cíclica entre las columnas 2, 3 y 4
+      const columns = [col1, col2, col3];
+      items.forEach((item, index) => {
+        const targetCol = columns[index % 3];
+        const card = document.createElement('article');
+        card.className = 'group cursor-pointer';
+        card.onclick = () => openLightbox(index);
+        card.innerHTML = `
+          <div class="aspect-square w-full bg-neutral-100 overflow-hidden relative">
+            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300" loading="lazy">
+          </div>
+          <div class="mt-3 flex justify-between items-baseline text-xs">
+            <h2 class="font-normal text-neutral-900 group-hover:text-black">${item.title}</h2>
+            <span class="font-mono text-neutral-600 text-[11px]">${item.category}</span>
+          </div>
+        `;
+        targetCol.appendChild(card);
+      });
+    }
+
+    function showEmptyNotice() {
+      const col1 = document.getElementById('col-1');
+      col1.innerHTML = '<p class="text-xs font-mono text-neutral-600">Añade proyectos en projects.json para verlos aquí.</p>';
+    }
+
+    function openLightbox(index) {
+      const item = projectList[index];
+      if (!item) return;
+      document.getElementById('lightbox-img').src = item.image;
+      document.getElementById('lightbox-title').textContent = item.title;
+      document.getElementById('lightbox-category').textContent = item.category;
+      document.getElementById('lightbox-desc').textContent = item.description || '';
+      
+      const modal = document.getElementById('lightbox');
+      modal.classList.remove('hidden');
+      setTimeout(() => modal.classList.remove('opacity-0'), 10);
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightbox');
+      modal.classList.add('opacity-0');
+      setTimeout(() => modal.classList.add('hidden'), 200);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    loadProjects();
+  </script>
+</body>
+</html>

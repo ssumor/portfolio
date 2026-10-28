@@ -43,19 +43,19 @@
       <aside class="w-full lg:sticky lg:top-16 pr-0 lg:pr-2">
         <header class="mb-8">
           <h1 class="text-2xl lg:text-3xl font-medium tracking-tight text-neutral-950">
-            [Tu Nombre y Apellidos]
+            Susana Moreno
           </h1>
           <p class="text-xs font-mono uppercase tracking-widest text-neutral-600 mt-1">
-            Diseñador/a Gráfico / Visual
+            Diseñadora de Producto & Espacios
           </p>
         </header>
 
         <!-- Breve párrafo -->
         <p class="text-sm text-neutral-800 leading-relaxed font-light mb-8">
-          Diseñador/a enfocado/a en dirección de arte, identidad visual y diseño editorial. Trabajo desarrollando soluciones visuales depuradas y sistemas coherentes para marcas e instituciones culturales.
+          Diseñadora enfocada en el diseño de producto, mobiliario, interiorismo e intervenciones espaciales. Trabajo investigando materiales, procesos sostenibles y soluciones sutiles que dialogan con el entorno cotidiano.
         </p>
 
-        <!-- 4 Puntos clave de tu CV -->
+        <!-- 4 Puntos clave del CV -->
         <div class="border-t border-neutral-300 pt-6 mb-8 space-y-4">
           <p class="text-[11px] font-mono uppercase tracking-widest text-neutral-600">Trayectoria Clave</p>
           
@@ -63,32 +63,32 @@
             <div class="flex items-start gap-2.5">
               <span class="font-mono text-neutral-600 text-[11px] mt-0.5">01</span>
               <div>
-                <strong class="font-medium text-neutral-900 block">Lead Designer en Estudio X</strong>
-                <span class="text-neutral-600 text-[11px]">2022 — Actualidad · Identidad & Dirección de arte</span>
+                <strong class="font-medium text-neutral-900 block">Diseño de Producto & Espacios</strong>
+                <span class="text-neutral-600 text-[11px]">Desarrollo de mobiliario, iluminación y arquitectura interior</span>
               </div>
             </div>
 
             <div class="flex items-start gap-2.5">
               <span class="font-mono text-neutral-600 text-[11px] mt-0.5">02</span>
               <div>
-                <strong class="font-medium text-neutral-900 block">Grado en Diseño Visual / Gráfico</strong>
-                <span class="text-neutral-600 text-[11px]">Universidad / Escuela de Diseño · 2018 — 2022</span>
+                <strong class="font-medium text-neutral-900 block">Exposiciones & Ferias</strong>
+                <span class="text-neutral-600 text-[11px]">Participación en Salón Nude (Feria Hábitat Valencia)</span>
               </div>
             </div>
 
             <div class="flex items-start gap-2.5">
               <span class="font-mono text-neutral-600 text-[11px] mt-0.5">03</span>
               <div>
-                <strong class="font-medium text-neutral-900 block">Reconocimiento / Premio de Diseño</strong>
-                <span class="text-neutral-600 text-[11px]">Selección Laus / Premios de Diseño · 2023</span>
+                <strong class="font-medium text-neutral-900 block">Investigación & Sostenibilidad</strong>
+                <span class="text-neutral-600 text-[11px]">Sistemas de mitigación bioclimática y nuevos materiales</span>
               </div>
             </div>
 
             <div class="flex items-start gap-2.5">
               <span class="font-mono text-neutral-600 text-[11px] mt-0.5">04</span>
               <div>
-                <strong class="font-medium text-neutral-900 block">Especialización Tipográfica</strong>
-                <span class="text-neutral-600 text-[11px]">Sistemas editoriales impresos y digitales</span>
+                <strong class="font-medium text-neutral-900 block">Proyectos Residenciales & Contract</strong>
+                <span class="text-neutral-600 text-[11px]">Viviendas modulares, equipamiento y herramientas cromáticas</span>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@
             tuemail@ejemplo.com
           </a>
           <div class="flex gap-4 text-xs font-mono text-neutral-600 pt-1">
-            <a href="https://behance.net" target="_blank" class="hover:text-neutral-950">Behance</a>
+            <a href="https://behance.net/susanamoreno" target="_blank" class="hover:text-neutral-950">Behance</a>
             <a href="https://instagram.com" target="_blank" class="hover:text-neutral-950">Instagram</a>
             <a href="https://linkedin.com" target="_blank" class="hover:text-neutral-950">LinkedIn</a>
           </div>
@@ -129,12 +129,12 @@
     </button>
 
     <!-- Flecha Izquierda -->
-    <button onclick="changeSlide(-1); event.stopPropagation();" class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 p-3 text-neutral-400 hover:text-black z-20 transition-colors" aria-label="Anterior">
+    <button id="carousel-prev-btn" onclick="changeSlide(-1); event.stopPropagation();" class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 p-3 text-neutral-400 hover:text-black z-20 transition-colors" aria-label="Anterior">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
     </button>
 
     <!-- Flecha Derecha -->
-    <button onclick="changeSlide(1); event.stopPropagation();" class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 p-3 text-neutral-400 hover:text-black z-20 transition-colors" aria-label="Siguiente">
+    <button id="carousel-next-btn" onclick="changeSlide(1); event.stopPropagation();" class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 p-3 text-neutral-400 hover:text-black z-20 transition-colors" aria-label="Siguiente">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
     </button>
 
@@ -199,72 +199,6 @@
     let activeProjectIdx = 0;
     let activeImageIdx = 0;
 
-    const fallbackProjects = [
-      {
-        title: "Generador cromático de moodboards",
-        category: "Interiorismo - 2026",
-        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&auto=format&fit=crop&q=80",
-        description: "El método aleatorio para escribir letras de canciones de David Bowie sirve de inspiración para generar esta herramienta. Partiendo del color o de las gamas cromáticas de una imagen, genera moodboards de materiales, colores y mobiliario.",
-        gallery: [
-          "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1600&auto=format&fit=crop&q=80"
-        ]
-      },
-      {
-        title: "A window for a Tree",
-        category: "Diseño de producto - Arquitectura - 2026",
-        image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=900&auto=format&fit=crop&q=80",
-        description: "El calentamiento progresivo de las ciudades en verano y la poda de árboles en algunos barrios de Barcelona sirve como reflexión para proponer soluciones fáciles de instalar y asequibles para mitigar el calor en las fachadas.",
-        gallery: [
-          "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&auto=format&fit=crop&q=80"
-        ]
-      },
-      {
-        title: "Colgador Zen",
-        category: "Diseño de producto - 2023",
-        image: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=900&auto=format&fit=crop&q=80",
-        description: "Cantos rodados naturales son convertidos en colgadores. Ninguno es igual, cada uno nos cuenta su historia y transmite la serenidad del elemento pétreo pulido.",
-        gallery: [
-          "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1600&auto=format&fit=crop&q=80"
-        ]
-      },
-      {
-        title: "Micro Home Camino de Santiago",
-        category: "Arquitectura - Interiorismo - 2024",
-        image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=900&auto=format&fit=crop&q=80",
-        description: "El programa consistía en realizar una casa de 50m2 destinada a alquiler vacacional en un emplazamiento natural con muy buenas vistas. Se ha aprovechado al máximo el espacio interior evitando pasillos.",
-        gallery: [
-          "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&auto=format&fit=crop&q=80"
-        ]
-      },
-      {
-        title: "Sofá Night & Day",
-        category: "Diseño de producto - 2010",
-        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&auto=format&fit=crop&q=80",
-        description: "Este sofá fue presentado en el Salón Nude de la Feria del Mueble de Valencia 2010. Su tamaño medio y su diseño flexible hace que sea adecuado para cualquier espacio residencial.",
-        gallery: [
-          "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&auto=format&fit=crop&q=80"
-        ]
-      },
-      {
-        title: "Florero Pet",
-        category: "Diseño de producto - 2010",
-        image: "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?w=900&auto=format&fit=crop&q=80",
-        description: "Este florero está concebido para poder disfrutar de los arreglos florales desde una perspectiva diferente, destacando la interacción entre el vidrio soplado y el agua.",
-        gallery: [
-          "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?w=1600&auto=format&fit=crop&q=80",
-          "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1600&auto=format&fit=crop&q=80"
-        ]
-      }
-    ];
-
     function setLightboxMode(mode) {
       currentLightboxMode = mode;
       const btnA = document.getElementById('btn-mode-a');
@@ -281,25 +215,26 @@
       }
     }
 
+    // Carga de proyectos directamente desde projects.json
     async function loadProjects() {
       try {
-        const res = await fetch('projects.json');
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            projectList = data;
-            renderGrid(projectList);
-            return;
-          }
+        const res = await fetch('projects.json?v=' + Date.now()); // evita caché agresiva en navegadores
+        if (!res.ok) throw new Error('No se pudo cargar projects.json');
+        
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          projectList = data;
+          renderGrid(projectList);
+        } else {
+          showEmptyNotice('projects.json está vacío.');
         }
-        projectList = fallbackProjects;
-        renderGrid(projectList);
-      } catch (e) {
-        projectList = fallbackProjects;
-        renderGrid(projectList);
+      } catch (err) {
+        console.warn('Cargando con error o en entorno local:', err);
+        showEmptyNotice('No se pudo leer el archivo projects.json. Revisa que esté en la raíz del repositorio.');
       }
     }
 
+    // Obtener lista completa de imágenes para el visor
     function getProjectImages(item) {
       if (Array.isArray(item.gallery) && item.gallery.length > 0) {
         return item.gallery;
@@ -319,7 +254,7 @@
       col3.innerHTML = '';
 
       if (!items || items.length === 0) {
-        showEmptyNotice();
+        showEmptyNotice('No hay proyectos registrados.');
         return;
       }
 
@@ -329,23 +264,25 @@
         const card = document.createElement('article');
         card.className = 'group cursor-pointer';
         card.onclick = () => handleProjectClick(index);
+        
+        // La miniatura principal siempre usa item.image en formato cuadrado 1:1
         card.innerHTML = `
           <div class="aspect-square w-full bg-neutral-100 overflow-hidden relative">
             <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300" loading="lazy">
           </div>
           <div class="mt-3 flex justify-between items-baseline text-xs">
             <h2 class="font-normal text-neutral-900 group-hover:text-black">${item.title}</h2>
-            <span class="font-mono text-neutral-600 text-[11px]">${item.category}</span>
+            <span class="font-mono text-neutral-600 text-[11px]">${item.category || ''}</span>
           </div>
         `;
         targetCol.appendChild(card);
       });
     }
 
-    function showEmptyNotice() {
+    function showEmptyNotice(msg) {
       const col1 = document.getElementById('col-1');
       if (col1) {
-        col1.innerHTML = '<p class="text-xs font-mono text-neutral-600">Añade proyectos en projects.json para verlos aquí.</p>';
+        col1.innerHTML = `<p class="text-xs font-mono text-neutral-500">${msg}</p>`;
       }
     }
 
@@ -361,7 +298,7 @@
     }
 
     /* -------------------------------------------------------------
-       LÓGICA OPCIÓN A: CARRUSEL CON FLECHAS
+       LÓGICA VISOR A: CARRUSEL CON FLECHAS
        ------------------------------------------------------------- */
     function openCarousel() {
       const item = projectList[activeProjectIdx];
@@ -386,18 +323,31 @@
       const catEl = document.getElementById('carousel-category');
       const descEl = document.getElementById('carousel-desc');
       const counterEl = document.getElementById('carousel-counter');
+      const prevBtn = document.getElementById('carousel-prev-btn');
+      const nextBtn = document.getElementById('carousel-next-btn');
 
       if (imgEl) imgEl.src = currentSrc;
       if (titleEl) titleEl.textContent = item.title;
-      if (catEl) catEl.textContent = item.category;
+      if (catEl) catEl.textContent = item.category || '';
       if (descEl) descEl.textContent = item.description || '';
-      if (counterEl) counterEl.textContent = `${activeImageIdx + 1} / ${images.length}`;
+      
+      if (counterEl) {
+        counterEl.textContent = images.length > 1 ? `${activeImageIdx + 1} / ${images.length}` : '';
+      }
+
+      // Ocultar flechas si solo tiene 1 imagen
+      if (prevBtn && nextBtn) {
+        const display = images.length > 1 ? 'block' : 'none';
+        prevBtn.style.display = display;
+        nextBtn.style.display = display;
+      }
     }
 
     function changeSlide(direction) {
       const item = projectList[activeProjectIdx];
       if (!item) return;
       const images = getProjectImages(item);
+      if (images.length <= 1) return;
       activeImageIdx = (activeImageIdx + direction + images.length) % images.length;
       updateCarouselSlide();
     }
@@ -411,7 +361,7 @@
     }
 
     /* -------------------------------------------------------------
-       LÓGICA OPCIÓN B: GALERÍA EDITORIAL SCROLL
+       LÓGICA VISOR B: GALERÍA EDITORIAL SCROLL
        ------------------------------------------------------------- */
     function openEditorial() {
       const item = projectList[activeProjectIdx];
@@ -423,7 +373,7 @@
       const gallery = document.getElementById('editorial-gallery');
 
       if (titleEl) titleEl.textContent = item.title;
-      if (catEl) catEl.textContent = item.category;
+      if (catEl) catEl.textContent = item.category || '';
       if (descEl) descEl.textContent = item.description || '';
 
       if (gallery) {
@@ -454,6 +404,7 @@
       setTimeout(() => modal.classList.add('hidden'), 200);
     }
 
+    // Controles por teclado: flechas para carrusel y Escape para cerrar
     document.addEventListener('keydown', (e) => {
       const carouselModal = document.getElementById('lightbox-carousel');
       const editorialModal = document.getElementById('lightbox-editorial');

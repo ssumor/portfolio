@@ -3,67 +3,67 @@
     "title": "Generador cromático de moodboards",
     "category": "Interiorismo - 2026",
     "image": "assets/proyecto1_thumb.jpg",
-    "description": "El método aleatorio para escribir letras de canciones de David Bowie sirve de inspiración para generar esta herramienta. Partiendo del color o de las gamas croáticas de una imagen, genera moodboards de materiales, colores y moviliario."
+    "description": "El método aleatorio para escribir letras de canciones de David Bowie sirve de inspiración para generar esta herramienta. Partiendo del color o de las gamas cromáticas de una imagen, genera moodboards de materiales, colores y mobiliario.",
     "gallery": [
-    "assets/proyecto1_01.jpg",
-    "assets/proyecto1_02.jpg",
-  ]
+      "assets/proyecto1_01.jpg",
+      "assets/proyecto1_02.jpg"
+    ]
   },
   {
     "title": "A window for a Tree",
     "category": "Diseño de producto - Arquitectura - 2026",
     "image": "assets/proyecto2_thumb.jpg",
-    "description": "El calentamiento progresivo de las ciudades en verano y la poda de árboles en algunos barrios de Barcelona sirve como reflexión para proponer soluciones fáciles de instalar y asequibles para mitigar el calor en las fachadas de los edificios en verano. Así nace A Window for a Tree, un híbrido entre pérgola y toldo que intenta minimizar las ganacias térmicas de los edificios de la ciudad desde una perspectiva biofílica."
+    "description": "El calentamiento progresivo de las ciudades en verano y la poda de árboles en algunos barrios de Barcelona sirve como reflexión para proponer soluciones fáciles de instalar y asequibles para mitigar el calor en las fachadas de los edificios en verano. Así nace A Window for a Tree, un híbrido entre pérgola y toldo que intenta minimizar las ganancias térmicas de los edificios de la ciudad desde una perspectiva biofílica.",
     "gallery": [
-    "assets/proyecto2_01.jpg",
-    "assets/proyecto2_02.jpg",
-    "assets/proyecto2_03.jpg",
-    "assets/proyecto2_04.jpg"
-  ]
+      "assets/proyecto2_01.jpg",
+      "assets/proyecto2_02.jpg",
+      "assets/proyecto2_03.jpg",
+      "assets/proyecto2_04.jpg"
+    ]
   },
   {
     "title": "Colgador Zen",
     "category": "Diseño de producto - 2013",
     "image": "assets/proyecto3_thumb.jpg",
-    "description": "Cantos rodados naturales son convertidos en colgadores. Ninguno es igual, cada uno nos cuenta su historia."
+    "description": "Cantos rodados naturales son convertidos en colgadores. Ninguno es igual, cada uno nos cuenta su historia.",
     "gallery": [
-    "assets/proyecto3_01.jpg",
-    "assets/proyecto3_02.jpg",
-    "assets/proyecto3_03.jpg",
-    "assets/proyecto3_04.jpg"
-  ]
+      "assets/proyecto3_01.jpg",
+      "assets/proyecto3_02.jpg",
+      "assets/proyecto3_03.jpg",
+      "assets/proyecto3_04.jpg"
+    ]
   },
   {
     "title": "Micro Home Camino de Santiago",
     "category": "Arquitectura - Interiorismo - 2024",
     "image": "assets/proyecto4_thumb.png",
-    "description": "El programa consistía en realizar una casa de 50m2 destinada a alquiler vacacional en un emplazamiento natural con muy buenas vistas. Se ha aprovechado al máximo el espacio interior evitando los pasillos y vestíbulos. El salón comedor y la cocina se articulan en un sólo espacio abierto a las vistas y a la terraza posterior, con orientación sur. Dos habitaciones dobles y un baño organizado en dos estancias completan el programa."
+    "description": "El programa consistía en realizar una casa de 50m2 destinada a alquiler vacacional en un emplazamiento natural con muy buenas vistas. Se ha aprovechado al máximo el espacio interior evitando los pasillos y vestíbulos. El salón comedor y la cocina se articulan en un sólo espacio abierto a las vistas y a la terraza posterior, con orientación sur. Dos habitaciones dobles y un baño organizado en dos estancias completan el programa.",
     "gallery": [
-    "assets/proyecto4_01.jpg",
-    "assets/proyecto4_02.jpg",
-    "assets/proyecto4_03.jpg",
-  ]
+      "assets/proyecto4_01.jpg",
+      "assets/proyecto4_02.jpg",
+      "assets/proyecto4_03.jpg"
+    ]
   },
   {
     "title": "Sofá Night & Day",
     "category": "Diseño de producto - 2010",
     "image": "assets/proyecto5_thumb.jpg",
-    "description": "Este sofá fue presentado en el Salón Nude de la Feria del Mueble de Valencia 2010. Su tamaño medio y su diseño flexible hace que sea adecuado para cualquier espacio."
+    "description": "Este sofá fue presentado en el Salón Nude de la Feria del Mueble de Valencia 2010. Su tamaño medio y su diseño flexible hace que sea adecuado para cualquier espacio.",
     "gallery": [
-    "assets/proyecto5_01.jpg",
-    "assets/proyecto5_02.jpg",
-    "assets/proyecto5_03.jpg",
-    "assets/proyecto5_04.jpg"
-  ]
+      "assets/proyecto5_01.jpg",
+      "assets/proyecto5_02.jpg",
+      "assets/proyecto5_03.jpg",
+      "assets/proyecto5_04.jpg"
+    ]
   },
   {
     "title": "Florero Pet",
     "category": "Diseño de producto - 2010",
     "image": "assets/proyecto6_thumb.webp",
-    "description": "Este florero está concebido para poder disfrutar de los arreglos florales desde una perspectiva diferente. ."
+    "description": "Este florero está concebido para poder disfrutar de los arreglos florales desde una perspectiva diferente.",
     "gallery": [
-    "assets/proyecto6_01.jpg",
-    "assets/proyecto6_02.jpg",
-  ]
-    }
+      "assets/proyecto6_01.jpg",
+      "assets/proyecto6_02.jpg"
+    ]
+  }
 ]

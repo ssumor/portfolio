@@ -10,21 +10,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    @media (min-width: 580px) {
-      .four-column-layout {
-        display: grid !important;
-        grid-template-columns: 1fr 3fr !important;
-      }
-    }
   </style>
 </head>
 <body class="bg-white text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">
 
   <main class="max-w-[1720px] mx-auto px-6 sm:px-8 py-8 lg:py-12">
-    <div class="grid grid-cols-1 four-column-layout gap-8 lg:gap-10 items-start">
+    <!-- Retícula principal de 4 columnas en pantallas medianas/grandes -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-10 items-start">
       
-      <!-- COLUMNA 1: TUS DATOS Y CV -->
-      <aside class="w-full lg:sticky lg:top-12 pr-0 lg:pr-2">
+      <!-- COLUMNA 1: TUS DATOS Y CV (Ocupa 1 columna) -->
+      <aside class="w-full md:sticky md:top-12 pr-0 lg:pr-2">
         <header class="mb-8">
           <h1 class="text-2xl lg:text-3xl font-medium tracking-tight text-neutral-950">
             Susana Moreno
@@ -117,8 +112,10 @@
         </div>
       </aside>
 
-      <!-- RETÍCULA DE PROYECTOS (ALINEACIÓN PERFECTA POR FILAS) -->
-      <section id="projects-grid" class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-10 gap-y-12 items-start"></section>
+      <!-- RETÍCULA DE PROYECTOS (Ocupa las 3 columnas restantes) -->
+      <section class="md:col-span-3 w-full">
+        <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-10 gap-y-12 items-start"></div>
+      </section>
 
     </div>
   </main>
@@ -162,148 +159,3 @@
 
     async function loadProjects() {
       try {
-        const res = await fetch('projects.json?v=' + Date.now());
-        if (!res.ok) throw new Error('No se pudo cargar projects.json');
-        
-        const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-          projectList = data;
-          renderGrid(projectList);
-        } else {
-          showEmptyNotice('projects.json está vacío.');
-        }
-      } catch (err) {
-        console.warn('Error al cargar projects.json:', err);
-        showEmptyNotice('No se pudo leer projects.json.');
-      }
-    }
-
-    function getProjectImages(item) {
-      if (Array.isArray(item.gallery) && item.gallery.length > 0) {
-        return item.gallery;
-      }
-      return [item.image];
-    }
-
-    function renderGrid(items) {
-      const grid = document.getElementById('projects-grid');
-      if (!grid) return;
-
-      grid.innerHTML = '';
-
-      if (!items || items.length === 0) {
-        showEmptyNotice('No hay proyectos registrados.');
-        return;
-      }
-
-      items.forEach((item, index) => {
-        const card = document.createElement('article');
-        card.className = 'group cursor-pointer flex flex-col';
-        card.onclick = () => handleProjectClick(index);
-        
-        card.innerHTML = `
-          <div class="aspect-square w-full bg-neutral-100 overflow-hidden relative">
-            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300" loading="lazy">
-          </div>
-          <div class="mt-3 flex justify-between items-start gap-2 text-xs">
-            <h2 class="font-normal text-neutral-900 group-hover:text-black">${item.title}</h2>
-            <span class="font-mono text-neutral-600 text-[11px] shrink-0 text-right">${item.category || ''}</span>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function showEmptyNotice(msg) {
-      const grid = document.getElementById('projects-grid');
-      if (grid) {
-        grid.innerHTML = `<p class="text-xs font-mono text-neutral-500">${msg}</p>`;
-      }
-    }
-
-    function handleProjectClick(index) {
-      activeProjectIdx = index;
-      activeImageIdx = 0;
-      openCarousel();
-    }
-
-    function openCarousel() {
-      const item = projectList[activeProjectIdx];
-      if (!item) return;
-
-      updateCarouselSlide();
-      const modal = document.getElementById('lightbox-carousel');
-      if (!modal) return;
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => modal.classList.remove('opacity-0'), 10);
-    }
-
-    function updateCarouselSlide() {
-      const item = projectList[activeProjectIdx];
-      if (!item) return;
-      const images = getProjectImages(item);
-      const currentSrc = images[activeImageIdx] || item.image;
-
-      const imgEl = document.getElementById('carousel-img');
-      const titleEl = document.getElementById('carousel-title');
-      const catEl = document.getElementById('carousel-category');
-      const descEl = document.getElementById('carousel-desc');
-      const counterEl = document.getElementById('carousel-counter');
-      const prevBtn = document.getElementById('carousel-prev-btn');
-      const nextBtn = document.getElementById('carousel-next-btn');
-
-      if (imgEl) imgEl.src = currentSrc;
-      if (titleEl) titleEl.textContent = item.title;
-      if (catEl) catEl.textContent = item.category || '';
-      if (descEl) descEl.textContent = item.description || '';
-      
-      if (counterEl) {
-        counterEl.textContent = images.length > 1 ? `${activeImageIdx + 1} / ${images.length}` : '';
-      }
-
-      if (prevBtn && nextBtn) {
-        const display = images.length > 1 ? 'block' : 'none';
-        prevBtn.style.display = display;
-        nextBtn.style.display = display;
-      }
-    }
-
-    function changeSlide(direction) {
-      const item = projectList[activeProjectIdx];
-      if (!item) return;
-      const images = getProjectImages(item);
-      if (images.length <= 1) return;
-      activeImageIdx = (activeImageIdx + direction + images.length) % images.length;
-      updateCarouselSlide();
-    }
-
-    function closeCarousel() {
-      const modal = document.getElementById('lightbox-carousel');
-      if (!modal) return;
-      modal.classList.add('opacity-0');
-      document.body.style.overflow = '';
-      setTimeout(() => modal.classList.add('hidden'), 200);
-    }
-
-    document.addEventListener('keydown', (e) => {
-      const carouselModal = document.getElementById('lightbox-carousel');
-      const isCarouselOpen = carouselModal && !carouselModal.classList.contains('hidden');
-
-      if (e.key === 'Escape' && isCarouselOpen) {
-        closeCarousel();
-      }
-      if (isCarouselOpen) {
-        if (e.key === 'ArrowRight') changeSlide(1);
-        if (e.key === 'ArrowLeft') changeSlide(-1);
-      }
-    });
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', loadProjects);
-    } else {
-      loadProjects();
-    }
-  </script>
-</body>
-</html>
